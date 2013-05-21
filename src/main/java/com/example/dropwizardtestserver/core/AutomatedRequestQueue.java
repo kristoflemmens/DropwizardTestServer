@@ -13,12 +13,12 @@ public class AutomatedRequestQueue {
         this.producer = producer;
     }
 
-    public static AutomatedRequestQueue create(AutomatedRequestQueueConfiguration automatedRequestQueueConfiguration) throws JMSException {
-        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(automatedRequestQueueConfiguration.getBrokerURL());
+    public static AutomatedRequestQueue create(AutomatedRequestQueueConfiguration configuration) throws JMSException {
+        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(configuration.getBrokerURL());
         Connection connection = connectionFactory.createConnection();
         connection.start();
-        Session session = connection.createSession(automatedRequestQueueConfiguration.isTransacted(), automatedRequestQueueConfiguration.getAcknowledgeMode());
-        return new AutomatedRequestQueue(session, session.createProducer(session.createQueue(automatedRequestQueueConfiguration.getQueueName())));
+        Session session = connection.createSession(configuration.isTransacted(), configuration.getAcknowledgeMode());
+        return new AutomatedRequestQueue(session, session.createProducer(session.createQueue(configuration.getQueueName())));
     }
 
     public void publish(String automatedRequest) throws JMSException {
