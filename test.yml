@@ -1,0 +1,5 @@
+automatedRequestQueueConfiguration:
+  brokerURL: vm://localhost?broker.persistent=false&broker.useJmx=false
+  transacted: false
+  acknowledgeMode: 1
+  queueName: test
